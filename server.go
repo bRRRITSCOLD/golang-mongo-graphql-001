@@ -1,11 +1,13 @@
 package main
 
 import (
-	"golang-mongo-graphql-001/graph"
-	"golang-mongo-graphql-001/graph/generated"
 	"log"
 	"net/http"
 	"os"
+
+	"golang-mongo-graphql-001/graph"
+	"golang-mongo-graphql-001/graph/generated"
+	"golang-mongo-graphql-001/mongodb"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -14,6 +16,9 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	// connect databases here
+	mongodb.Connect(*mongodb.MongoDBConfigurations)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
